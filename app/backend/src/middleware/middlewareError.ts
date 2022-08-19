@@ -23,6 +23,8 @@ const errorMiddleware: ErrorRequestHandler = (err, _req, res, next) => {
       break;
   }
 
+  console.log(err);
+
 };
 
 export default errorMiddleware;
