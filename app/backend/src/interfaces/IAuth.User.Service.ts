@@ -1,4 +1,4 @@
-interface IToken {
+interface IToken{
   token?: string
 }
 
@@ -10,12 +10,13 @@ interface IAuthService extends IToken{
 
  interface IUser extends IAuthService{
   id?: number,
-  username: string,
-  role?: string,  
+  username?: string,
+  role: string,  
 }
 
  interface ILogin {
-  login(credential:IUser): Promise<string>
+  login(credential:IUser): Promise<string>,
+  getUserRole(token: string): void
 }
 
 export { IAuthService, IUser, ILogin, IToken }
