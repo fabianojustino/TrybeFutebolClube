@@ -10,13 +10,13 @@ export default class AuthService implements ILogin {
     
     validate.validateLogin(body)
     
-    const {email} = body   
+    const {email, password} = body   
     
-    const userOne = await User.findOne({ where: { email }});
+    const userOne = await User.findOne({ where: { email }});     
 
-    const { password } = userOne as any    
+    const { password: passwordDb } = userOne as any    
 
-    passwordService.checkPassword({password, passwordDb: userOne?.password})
+    passwordService.checkPassword({password, passwordDb})
 
    
     // GERA UM TOKEN
