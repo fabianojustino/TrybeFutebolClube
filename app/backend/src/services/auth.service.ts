@@ -12,7 +12,13 @@ export default class AuthService implements ILogin {
     
     const {email, password} = body   
     
-    const userOne = await User.findOne({ where: { email }});     
+    const userOne = await User.findOne({ where: { email }});
+    
+    if(!userOne){
+      const e = new Error('Incorrect email or password');
+      e.name = 'UnauthorizedError';
+      throw e;
+    }
 
     const { password: passwordDb } = userOne as any    
 
@@ -21,8 +27,8 @@ export default class AuthService implements ILogin {
    
     // GERA UM TOKEN
       const token = Jwt.createToken({
-        email: userOne?.email,
-        password: userOne?.password,
+        email,
+        password,
       })      
     
 
