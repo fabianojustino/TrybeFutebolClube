@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
-import { ITeam } from '../interfaces/ITeam.Service';
 import { StatusCodes } from 'http-status-codes';
+import ITeam from '../interfaces/ITeam.Service';
 import IService from '../interfaces/IService';
 
 import TeamService from '../services/team.service';
