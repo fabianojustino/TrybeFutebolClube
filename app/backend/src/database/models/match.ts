@@ -10,42 +10,43 @@ class Match extends Model {
   password!: string;
 }
 
-Match.init({
-  id: {
-    type: INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
+Match.init(
+  {
+    id: {
+      type: INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    username: {
+      type: STRING,
+      allowNull: false,
+    },
+    role: {
+      type: STRING,
+      allowNull: false,
+    },
+    email: {
+      type: STRING,
+      allowNull: false,
+    },
+    password: {
+      type: STRING,
+      allowNull: false,
+    },
   },
-  username: {
-    type: STRING,
-    allowNull: false,
+  {
+    sequelize: db,
+    modelName: 'matches',
+    underscored: true,
+    timestamps: false,
   },
-  role: {
-    type: STRING,
-    allowNull: false,
-  },
-  email: {
-    type: STRING,
-    allowNull: false,
-  },
-  password: {
-    type: STRING,
-    allowNull: false,
-  },
-}, {
-  sequelize: db,
-  modelName: 'matches',
-  underscored: true,
-  timestamps: false,
-});
-
+);
 
 // OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
 // OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
 
 Match.hasMany(Teams, { foreignKey: 'home_team', as: 'homeTeam' });
 Match.hasMany(Teams, { foreignKey: 'away_team', as: 'awayTeam' });
-
 
 export default Match;

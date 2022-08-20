@@ -1,3 +1,3 @@
-import validateLogin from "./loginValidate";
+import validateLogin from './loginValidate';
 
-export {validateLogin};
+export default { validateLogin };

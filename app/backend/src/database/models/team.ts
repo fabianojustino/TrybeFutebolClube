@@ -3,25 +3,29 @@ import db from '.';
 
 class Teams extends Model {
   id!: number;
-  team_name!: string;  
+  teamName!: string;
 }
 
-Teams.init({
-  id: {
-    type: INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
+Teams.init(
+  {
+    id: {
+      type: INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    teamName: {
+      type: STRING,
+      allowNull: false,
+      field: 'team_name',
+    },
   },
-  team_name: {
-    type: STRING,
-    allowNull: false,
-  } 
-}, {
-  sequelize: db,
-  modelName: 'teams',
-  underscored: true,
-  timestamps: false,
-});
+  {
+    sequelize: db,
+    modelName: 'teams',
+    underscored: true,
+    timestamps: false,
+  },
+);
 
 export default Teams;

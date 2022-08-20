@@ -6,6 +6,6 @@ const loginMock: IToken = {
 
 const postLoginMock: IAuthService = {
   email: 'any_email@fibiano.com',
-  password: 'any_password'
-}
-export {loginMock, postLoginMock};
+  password: 'any_password',
+};
+export { loginMock, postLoginMock };

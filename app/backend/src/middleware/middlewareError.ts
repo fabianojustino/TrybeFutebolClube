@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 
-const errorMiddleware: ErrorRequestHandler = (err, _req, res, next) => {
+const errorMiddleware: ErrorRequestHandler = (err, _req, res, _next) => {
   const { name, message } = err;
   switch (name) {
     case 'ValidationError':
@@ -12,19 +12,16 @@ const errorMiddleware: ErrorRequestHandler = (err, _req, res, next) => {
     case 'NotFoundError':
       res.status(404).json({ message });
       break;
-    case 'ConflictError':
+      /*  case 'ConflictError':
       res.status(409).json({ message });
-      break;
-    case 'SequelizeConnectionRefusedError': 
+      break; */
+      /*  case 'SequelizeConnectionRefusedError':
       res.status(503).end();
-      break;
+      break; */
     default:
       res.status(500).json({ message });
       break;
   }
-
-   console.log(err);
-
+  console.log(err);
 };
-
 export default errorMiddleware;

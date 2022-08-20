@@ -1,3 +1,3 @@
 export default interface IUserService<T> {
-  list(): Promise<T[]>
+  list(): Promise<T[]>;
 }

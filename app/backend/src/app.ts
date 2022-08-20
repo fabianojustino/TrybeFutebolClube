@@ -3,7 +3,6 @@ import * as express from 'express';
 import authRouter from './routes/auth.router';
 import errorMiddleware from './middleware/middlewareError';
 
-
 class App {
   public app: express.Express;
 
@@ -14,14 +13,17 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
-    this.app.use('/login', authRouter);   
-    this.app.use(errorMiddleware)
+    this.app.use('/login', authRouter);
+    this.app.use(errorMiddleware);
   }
 
-  private config():void {
+  private config(): void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
+      res.header(
+        'Access-Control-Allow-Methods',
+        'GET,POST,DELETE,OPTIONS,PUT,PATCH',
+      );
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
@@ -30,7 +32,7 @@ class App {
     this.app.use(accessControl);
   }
 
-  public start(PORT: string | number):void {
+  public start(PORT: string | number): void {
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
   }
 }
