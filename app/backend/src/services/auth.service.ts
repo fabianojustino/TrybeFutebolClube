@@ -26,8 +26,8 @@ export default class AuthService implements ILogin {
     
    
     // GERA UM TOKEN
-    const token = Jwt.createToken({
-      role,
+    const token = Jwt.createToken({   
+      role,   
       email,
       password,
       })      

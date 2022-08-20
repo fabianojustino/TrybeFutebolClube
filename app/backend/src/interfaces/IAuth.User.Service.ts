@@ -11,7 +11,7 @@ interface IAuthService extends IToken{
  interface IUser extends IAuthService{
   id?: number,
   username?: string,
-  role: string,  
+  role?: string,  
 }
 
  interface ILogin {

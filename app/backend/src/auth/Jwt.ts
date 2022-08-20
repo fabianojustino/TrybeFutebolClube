@@ -12,7 +12,7 @@ export default class Jwt {
       algorithm: 'HS256',
     };
     
-    const secret: Secret = process.env.JWT_SECRET || 'suaSenhaSecreta';
+    const secret: Secret =process.env.JWT_SECRET || 'jwt_secret';
   
     const token = sign({ data: user }, secret, jwtConfig);
   
@@ -21,9 +21,8 @@ export default class Jwt {
 
    static validateToken(token: string): string | null | JwtPayload  {
     try {   
-      const response = verify(token, 'suaSenhaSecreta') as any;
-      const values = response['data'];        
-      return values;    
+      const {data} = verify(token, 'jwt_secret') as any;                  
+      return data;    
       
     } catch (_err) {
       const e = new Error('Invalid token');

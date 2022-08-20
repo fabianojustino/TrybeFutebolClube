@@ -1,4 +1,4 @@
-import { Response, Request } from 'express';
+import { Response, Request, response } from 'express';
 import {StatusCodes} from 'http-status-codes'
 import  {IUser}  from "../interfaces/IAuth.User.Service"
 import AuthService from '../services/auth.service';
@@ -15,8 +15,12 @@ export default class AuthController {
 
   getUserRole(req: Request, res: Response) {
     const token = req.headers.authorization as string;    
-    const type = this.authServ.getUserRole(token) as IUser;
-    res.status(200).json({role: type.role});
+    const value = this.authServ.getUserRole(token) as IUser;    
+
+    const response = {
+      role: value['role']
+    }
+    res.status(200).json(response);
   } 
 
 }
