@@ -14,4 +14,9 @@ export default class AuthController {
     const teams = await this.teamServ.list();
     res.status(StatusCodes.OK).json(teams);
   }
+
+  async getById(req: Request, res: Response) {
+    const team = await this.teamServ.getById(Number(req.params.id));
+    res.status(StatusCodes.OK).json(team);
+  }
 }
