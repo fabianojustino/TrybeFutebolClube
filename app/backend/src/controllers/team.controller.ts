@@ -1,12 +1,12 @@
 import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import ITeam from '../interfaces/ITeam.Service';
 import IService from '../interfaces/IService';
 
 import TeamService from '../services/team.service';
+import Teams from '../database/models/team';
 
 export default class AuthController {
-  constructor(private teamServ: IService<ITeam>) {
+  constructor(private teamServ: IService<Teams>) {
     this.teamServ = new TeamService();
   }
 
