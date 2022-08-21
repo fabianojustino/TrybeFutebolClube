@@ -14,4 +14,9 @@ export default class MatchController {
     const matches = await this.matchServ.list();
     res.status(StatusCodes.OK).json(matches);
   }
+
+  async create(req: Request, res: Response) {
+    const match = await this.matchServ.create(req.body, true);
+    res.status(StatusCodes.CREATED).json(match);
+  }
 }
