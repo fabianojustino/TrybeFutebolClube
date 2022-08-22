@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 
-const errorMiddleware: ErrorRequestHandler = (err, _req, res, _next) => {
+const errorMiddleware: ErrorRequestHandler = (err, _req, res, next) => {
   const { name, message } = err;
   switch (name) {
     case 'ValidationError':
@@ -23,5 +23,6 @@ const errorMiddleware: ErrorRequestHandler = (err, _req, res, _next) => {
       break;
   }
   console.log(err);
+  next();
 };
 export default errorMiddleware;

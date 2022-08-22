@@ -18,8 +18,20 @@ export default class MatchController {
 
   async create(req: Request, res: Response) {
     const token = req.headers.authorization;
+
     Jwt.validateToken(token || '');
+
+    await this.matchServ.checkTeam(req.body.homeTeam, req.body.awayTeam);
+
     const match = await this.matchServ.create(req.body, true);
     res.status(StatusCodes.CREATED).json(match);
+  }
+
+  async update(req: Request, res: Response) {
+    // const token = req.headers.authorization;
+    const { id } = req.params;
+    // Jwt.validateToken(token || '');
+    await this.matchServ.update(Number(id), false);
+    res.status(StatusCodes.OK).json({ message: 'Finished' });
   }
 }

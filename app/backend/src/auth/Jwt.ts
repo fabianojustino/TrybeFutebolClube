@@ -21,8 +21,8 @@ export default class Jwt {
       const { data } = verify(token, 'jwt_secret') as any;
       return data;
     } catch (_err) {
-      const e = new Error('Invalid token');
-      e.name = 'ValidationError';
+      const e = new Error('Token must be a valid token');
+      e.name = 'UnauthorizedError';
       throw e;
     }
   }
