@@ -79,7 +79,7 @@ export default class MatchService implements IMatchService<Matches> {
     return this._match;
   }
 
-  async update(id: number, status: boolean): Promise<true> {
+  async finished(id: number, status: boolean): Promise<true> {
     const result = await Matches.update(
       { inProgress: status },
       { where: { id } },
@@ -90,6 +90,27 @@ export default class MatchService implements IMatchService<Matches> {
     }
 
     this._itUpdate = true;
-    return (this._itUpdate);
+    return this._itUpdate;
+  }
+
+  async update(
+    id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: boolean,
+  ): Promise<true> {
+    const result = await Matches.update(
+      {
+        homeTeamGoals,
+        awayTeamGoals,
+      },
+      { where: { id } },
+    );
+
+    if (!result) {
+      throw new Error('Não foi possível alterar o status da partida');
+    }
+
+    this._itUpdate = true;
+    return this._itUpdate;
   }
 }

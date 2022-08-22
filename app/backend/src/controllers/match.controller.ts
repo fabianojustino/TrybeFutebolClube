@@ -27,11 +27,20 @@ export default class MatchController {
     res.status(StatusCodes.CREATED).json(match);
   }
 
-  async update(req: Request, res: Response) {
+  async finished(req: Request, res: Response) {
     // const token = req.headers.authorization;
     const { id } = req.params;
     // Jwt.validateToken(token || '');
-    await this.matchServ.update(Number(id), false);
+    await this.matchServ.finished(Number(id), false);
     res.status(StatusCodes.OK).json({ message: 'Finished' });
+  }
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    await this.matchServ.update(Number(id), homeTeamGoals, awayTeamGoals);
+    res
+      .status(StatusCodes.OK)
+      .json({ message: 'Partida atualizada com sucesso !' });
   }
 }
