@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { Secret, SignOptions, sign, verify } from 'jsonwebtoken';
-import { IUser } from '../interfaces/IAuth.User.Service';
+import { IUser } from '../interfaces/IAuth';
 
 export default class Jwt {
   static createToken(user: IUser) {

@@ -1,6 +1,6 @@
 import { JwtPayload } from 'jsonwebtoken';
 import User from '../database/models/user';
-import { ILogin, IAuthService, IUser } from '../interfaces/IAuth.User.Service';
+import { ILogin, IAuthService, IUser } from '../interfaces/IAuth';
 import passwordService from './passwordService';
 import Jwt from '../auth/Jwt';
 import validate from '../validations';

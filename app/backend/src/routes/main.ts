@@ -7,6 +7,9 @@ import TeamService from '../services/team.service';
 import MatchController from '../controllers/match.controller';
 import MatchService from '../services/match.service';
 
+import LeaderService from '../services/leader.service';
+import LeaderController from '../controllers/leader.controller';
+
 // AUTH
 const authService = new AuthService();
 const authController = new AuthController(authService);
@@ -19,4 +22,8 @@ const teamController = new TeamController(teamService);
 const matchService = new MatchService();
 const matchController = new MatchController(matchService);
 
-export { authController, teamController, matchController };
+// LEADER COM O MODEL MATCH
+const leaderService = new LeaderService();
+const leaderController = new LeaderController(leaderService);
+
+export { authController, teamController, matchController, leaderController };

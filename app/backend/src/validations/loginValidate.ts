@@ -1,5 +1,5 @@
 import Joi = require('joi');
-import { IAuthService } from '../interfaces/IAuth.User.Service';
+import { IAuthService } from '../interfaces/IAuth';
 import msgSchema from '../helpers/schemas';
 
 export default function validateLogin(params: IAuthService) {

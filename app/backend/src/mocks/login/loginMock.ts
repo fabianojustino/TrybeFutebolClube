@@ -1,4 +1,4 @@
-import { IAuthService, IToken } from '../../interfaces/IAuth.User.Service';
+import { IAuthService, IToken } from '../../interfaces/IAuth';
 
 const loginMock: IToken = {
   token: '1234',

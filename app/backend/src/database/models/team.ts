@@ -17,7 +17,7 @@ Teams.init(
     teamName: {
       type: STRING,
       allowNull: false,
-      /* field: 'team_name', */
+      field: 'team_name',
     },
   },
   {

@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
 import Teams from '../database/models/team';
 import Matches from '../database/models/match';
-import IMatchService from '../interfaces/IMatchService';
+import IMatchService from '../interfaces/IMatch';
 import IMatchProps from '../interfaces/IMatchProps';
 
 export default class MatchService implements IMatchService<Matches> {
@@ -96,7 +96,7 @@ export default class MatchService implements IMatchService<Matches> {
   async update(
     id: number,
     homeTeamGoals: number,
-    awayTeamGoals: boolean,
+    awayTeamGoals: number,
   ): Promise<true> {
     const result = await Matches.update(
       {

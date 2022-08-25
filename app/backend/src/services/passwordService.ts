@@ -1,5 +1,5 @@
 import * as bcript from 'bcryptjs';
-import { IAuthService } from '../interfaces/IAuth.User.Service';
+import { IAuthService } from '../interfaces/IAuth';
 
 const passwordService = {
   encryptPassword: (password: string): string => {

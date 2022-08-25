@@ -2,7 +2,7 @@ import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import Jwt from '../auth/Jwt';
 import Match from '../database/models/match';
-import IMatchService from '../interfaces/IMatchService';
+import IMatchService from '../interfaces/IMatch';
 
 import MatchService from '../services/match.service';
 
