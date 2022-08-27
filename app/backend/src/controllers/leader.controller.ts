@@ -10,8 +10,8 @@ export default class LeaderController {
     this.leaderServ = new LeaderService();
   }
 
-  async list(_req: Request, res: Response) {
-    const teams = await this.leaderServ.list();
+  async list(req: Request, res: Response) {
+    const teams = await this.leaderServ.list(req.path);
     res.status(StatusCodes.OK).json(teams);
   }
 }

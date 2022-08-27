@@ -1,3 +1,3 @@
 export default interface ILeader<T> {
-  list(): Promise<T[] | unknown | undefined>;
+  list(team: string): Promise<T[] | unknown | undefined>;
 }

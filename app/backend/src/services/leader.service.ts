@@ -5,6 +5,7 @@ import Matches from '../database/models/match';
 export default class LeaderService implements ILeader<Matches> {
   private _leaders: unknown[] | unknown | undefined;
   private _queryHome: string;
+  private _queryAway: string;
 
   get leaders() {
     return this._leaders;
@@ -19,8 +20,7 @@ export default class LeaderService implements ILeader<Matches> {
     CAST(sum(m.home_team_goals < m.away_team_goals) AS UNSIGNED) as totalLosses,
     CAST(sum(m.home_team_goals)AS UNSIGNED) as goalsFavor,
     CAST(sum(m.away_team_goals)AS UNSIGNED) as goalsOwn,
-    CAST(sum(m.home_team_goals - m.away_team_goals)AS SIGNED) as goalsBalance,
-    CAST(sum((m.home_team_goals > m.away_team_goals)) AS UNSIGNED) as efficiency
+    CAST(sum(m.home_team_goals - m.away_team_goals)AS SIGNED) as goalsBalance  
     FROM matches m    
     INNER JOIN teams t
     ON m.home_team = t.id
@@ -28,6 +28,25 @@ export default class LeaderService implements ILeader<Matches> {
     GROUP BY m.home_team
     ORDER BY totalVictories DESC, goalsBalance DESC, goalsFavor DESC, goalsOwn DESC`;
     return this._queryHome;
+  }
+
+  get queryAway() {
+    this._queryAway = `SELECT      
+    t.team_name as name,
+    count(m.away_team) as totalGames,
+    CAST(sum(m.away_team_goals > m.home_team_goals) AS UNSIGNED)as totalVictories,
+    CAST(sum(m.away_team_goals = m.home_team_goals) AS UNSIGNED) as totalDraws,
+    CAST(sum(m.away_team_goals < m.home_team_goals) AS UNSIGNED) as totalLosses,
+    CAST(sum(m.away_team_goals)AS UNSIGNED) as goalsFavor,
+    CAST(sum(m.home_team_goals)AS UNSIGNED) as goalsOwn,
+    CAST(sum(m.away_team_goals - m.home_team_goals)AS SIGNED) as goalsBalance  
+    FROM matches m    
+    INNER JOIN teams t
+    ON m.away_team = t.id
+    WHERE m.in_progress = false
+    GROUP BY m.away_team
+    ORDER BY totalVictories DESC, goalsBalance DESC, goalsFavor DESC, goalsOwn DESC`;
+    return this._queryAway;
   }
 
   static formatResult(item: any) {
@@ -43,7 +62,7 @@ export default class LeaderService implements ILeader<Matches> {
       goalsBalance: item.goalsBalance,
       efficiency: (
         (Math.floor(item.totalVictories * 3
-          + item.totalDraws) / (item.totalGames * 3)) * 100).toFixed(2),
+           + item.totalDraws) / (item.totalGames * 3)) * 100).toFixed(2),
     };
   }
 
@@ -53,11 +72,13 @@ export default class LeaderService implements ILeader<Matches> {
       .sort((a: any, b: any) => b.totalPoints - a.totalPoints);
 
     this._leaders = results;
-    return this._leaders;
+    return this.leaders;
   }
 
-  async list(): Promise<unknown | unknown[] | undefined> {
-    const queryResult = await Matches.sequelize?.query(this.queryHome);
+  async list(team: string): Promise<unknown | unknown[] | undefined> {
+    const equipe = team.replace('/', '') === 'home' ? this.queryHome : this.queryAway;
+
+    const queryResult = await Matches.sequelize?.query(equipe);
     if (queryResult) return this.preparedResult(queryResult);
     return [];
   }
